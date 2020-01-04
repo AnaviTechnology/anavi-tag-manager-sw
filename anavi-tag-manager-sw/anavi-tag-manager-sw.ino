@@ -49,6 +49,21 @@ void checkDisplay()
     }
 }
 
+void drawDisplay(const char *line1, const char *line2 = "", const char *line3 = "")
+{
+    // Write on OLED display
+    // Clear the internal memory
+    u8g2.clearBuffer();
+    // Set appropriate font
+    u8g2.setFont(u8g2_font_ncenR14_tr);
+    u8g2.drawStr(0,14, line1);
+    u8g2.setFont(u8g2_font_ncenR10_tr);
+    u8g2.drawStr(0,39, line2);
+    u8g2.drawStr(0,60, line3);
+    // Transfer internal memory to the display
+    u8g2.sendBuffer();
+}
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -60,6 +75,8 @@ void setup() {
   u8g2.begin();
 
   delay(10);
+
+  drawDisplay("ANAVI", "Tag Manager", "NFC / RFID");
 
   Serial.println("==== ANAVI Tag Manager ====");
 
